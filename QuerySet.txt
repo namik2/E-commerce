@@ -1,0 +1,50 @@
+1.
+
+>>> from django.db.models import Count
+>>> from blog.models import *
+>>> most_com = Blog.objects.annotate(num_coms=Count('blogs')).order_by('-num_coms')[:4]
+>>> most_com
+
+2.
+>>> from blog.models import *
+>>> last4 = Blog.objects.order_by('-id')[:4]
+>>> last4
+
+3.
+
+>>> bloglist = list(Blog.objects.all())
+>>> for eachblog in bloglist:
+...     print(eachblog.category)
+
+4.
+
+>>> from blog.models import Blog
+>>> from django.db.models import Q
+>>> qs = Blog.objects.all()
+>>> anyblog = qs.filter(Q(title__icontains='n') | Q(title__icontains='h'))
+>>> anyblog
+
+5.
+
+>>> from blog.models import *
+>>> qs = Comment.objects.filter(blog__title="Blog 1 Title")
+>>> qs
+
+6.
+
+>>> from product.models import *
+>>> time = Product.objects.order_by('-created_at')
+>>> time
+
+>>> price = Product.objects.order_by('price')
+>>> price
+
+>>> price = Product.objects.filter(price=78.00)
+>>> price
+
+7.
+
+>>> from django.db.models import Count
+>>> from product.models import *
+>>> most_tag = Tag.objects.annotate(num_tags=Count('product_tags')).order_by('-num_tags')[:5]
+>>> most_tag
