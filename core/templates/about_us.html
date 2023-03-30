@@ -1,44 +1,77 @@
 ﻿{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title%}Superb premium HTML5 &amp; CSS3 template{% endblock title%}
+
+{% block css %}
+<!-- CSS Style -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/internal.css' %}">
+{% endblock css %}
+
+
+
+{% block bodyclass %}cms-page-view cms-about-us rtl inner-page{% endblock bodyclass %}
+{% block divid %}page{% endblock divid %}
 
 {% block content %}
-{% load static %}
-  <!-- Main Container -->
-  <section class="main-container col2-right-layout">
-    <div class="main container">
-      <div class="row">
-        <section class="col-main col-sm-9">
-          <div class="page-title">
-            <h1>About Us</h1>
-          </div>
-          <div class="static-contain">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-            <br>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem IpsumLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-            <br>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-          </div>
-        </section>
-        <aside class="col-right sidebar col-sm-3">
-          <div class="block block-company">
-            <div class="block-title">Company </div>
-            <div class="block-content">
-              <ol id="recently-viewed-items">
-                <li class="item odd"><strong>About Us</strong></li>
-                <li class="item even"><a href="#">Sitemap</a></li>
-                <li class="item  odd"><a href="#">Terms of Service</a></li>
-                <li class="item even"><a href="#">Search Terms</a></li>
-                <li class="item last"><a href="contact-us.html">Contact Us</a></li>
-              </ol>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-  <!-- Main Container End --> 
-  
+<!-- Main Container -->
+<section class="main-container col2-right-layout">
+  <div class="main container">
+    <div class="row">
+      <section class="col-main col-sm-9">
+        <div class="page-title">
+          <h1>About Us</h1>
+        </div>
+        <div class="static-contain">
+          <h2>HAVE YOU HEARD ABOUT US?</h2>
+          <p>SuperB is a family-owned company, founded in 1976, and inspired by the belief that the best sports products
+            should be accessible to everyone.
 
-  
+            Ever-evolving and high performance design, the best quality at the lowest possible price, and expert advice
+            that customers of all ages, backgrounds and skill levels can access in-store or online, from anywhere, at
+            any time, is what makes us who we are. And we’re pretty proud of that.
+
+          </p>
+          <br>
+          <h2>A COMPANY WITH A COMMITMENT
+          </h2>
+          <p>Yes, we’re an international sports retailer with 2080 stores in 56 countries, and if you look a little closer, you’ll see we’re so much more.
+
+            Decathlon is dedicated to helping, inspiring and guiding you through your sports experiences. We believe that discovering new sports and being active – well, it’s an important part of life – and living well shouldn’t just be for a privileged few.
+            
+            The power of people and positivity is at the heart of our business. Our team are sports people who are full of energy and enthusiasm for what we do; we’re encouraged to innovate and improve, and most importantly, to make changes for the better. We take our responsibility to sport and the world seriously, and we strive to anticipate and rise to the challenges that face our society and our environment.
+            
+            
+          <br>
+         
+        </div>
+      </section>
+      <aside class="col-right sidebar col-sm-3">
+        <div class="block block-company">
+          <div class="block-title">Company </div>
+          <div class="block-content">
+            <ol id="recently-viewed-items">
+              <li class="item odd"><strong>About Us</strong></li>
+              <li class="item last"><a href="{% url 'contact' %}">Contact Us</a></li>
+            </ol>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<!-- Main Container End -->
+
+{% include 'brand_logo.html' %}
+
+{% endblock content %}
 
 </div>
-{% endblock %}
+
+{% block js %}
+<!-- JavaScript -->
+<script type="text/javascript" src="{% static 'js/parallax.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.flexslider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/cloud-zoom.js' %}"></script>
+{% endblock js %}

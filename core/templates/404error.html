@@ -1,13 +1,19 @@
-﻿
-{% extends 'base.html' %}
-
-{% block content %}
+﻿{% extends 'base.html' %}
 {% load static %}
-<body class="inner-page">
-<div id="page"> 
+
+{% block title %}404 Error{% endblock title %}
+
+{% block css %}
+<!-- CSS Style -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/internal.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/flexslider.css' %}">
+{% endblock css %}
+
+{% block bodyclass %}inner-page{% endblock bodyclass %}
+{% block divid %}page{% endblock divid %}
   
 
-  
+{% block content %}  
   <!-- Main Container -->
   <section class="content-wrapper bounceInUp animated">
     <div class="container">
@@ -22,9 +28,14 @@
   </section>
   <!-- Main Container End --> 
   
+{% include 'brand_logo.html' %}
 
+{% endblock content %}
+  
 
-{% endblock %}
-
-</div>
-{% endblock %}
+{% block js %}
+<!-- JavaScript --> 
+<script type="text/javascript" src="{% static 'js/parallax.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.flexslider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/cloud-zoom.js' %}"></script>
+{% endblock js %}

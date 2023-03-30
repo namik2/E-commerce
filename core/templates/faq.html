@@ -1,8 +1,18 @@
 ﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}FAQ{% endblock title %}
+
+{% block css %}
+<!-- CSS Style -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/internal.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/flexslider.css' %}">
+{% endblock css %}
+
+
+{% block bodyclass %}inner-page{% endblock bodyclass %}
 
 {% block content %}
-
-{% load static %}
 <!-- Home Slider Block -->
 
 <section class="main-container col1-layout">
@@ -55,6 +65,13 @@
   </div>
 </section>
 
+{% include 'brand_logo.html' %}
 
-  
-  {% endblock %}
+{% endblock content %}
+
+{% block js %}
+<!-- JavaScript --> 
+<script type="text/javascript" src="{% static 'js/parallax.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.flexslider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/cloud-zoom.js' %}"></script>
+{% endblock js %}

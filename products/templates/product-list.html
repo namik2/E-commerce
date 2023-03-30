@@ -1,0 +1,264 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Product List{% endblock title %}
+
+{% block css %}
+<!-- CSS Style -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.bxslider.css' %}">
+{% endblock css %}
+
+
+{% block bodyclass %}inner-page{% endblock bodyclass %}
+{% block divid %}page{% endblock divid %}
+
+{% block content %}
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+
+        <!-- <ul class="breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Vehicles</a></li>
+          <li><a href="#">Vans</a></li>
+          <li><a href="#">Camper Vans</a></li>
+          <li><a href="#">1989 VW Westfalia Vanagon</a></li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumbs End -->
+<!-- Main Container -->
+
+<section class="main-container col2-left-layout bounceInUp animated">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-main col-sm-9 col-sm-push-3">
+        <!-- <div class="category-image"><img title="Sofas " alt="Sofas " src="{% static 'images/category-banner.jpg' %}">
+        </div> -->
+        <article class="col-main">
+          <div class="page-title">
+            <!-- <h1>Tops & Tees</h1> -->
+          </div>
+
+          
+          <div class="category-products">
+            <ol class="products-list" id="products-list">
+              {% for product in page_obj %}
+              <li class="item first product-list">
+                <div class="product-image"> <a href="{% url 'product_detail' product.pk %}" title="HTC Rhyme Sense">
+                    <img class="small-image" src="{{product.cover_image.url}}" alt="HTC Rhyme Sense"> </a> </div>
+                <div class="product-shop">
+                  <h2 class="product-name"><a href="{% url 'product_detail' product.pk %}"
+                      title="HTC Rhyme Sense">{{product.title}}</a></h2>
+                  <div class="ratings" style="visibility: hidden;">
+                    <div class="rating-box">
+                      <div style="width:50%" class="rating"></div>
+                    </div>
+                    <p class="rating-links"> <a href="#/review/product/list/id/167/category/35/">1 Review(s)</a> <span
+                        class="separator">|</span> <a href="#review-form">Add Your Review</a> </p>
+                  </div>
+                  <div class="desc std">
+                    <p>{{product.description | safe | truncatewords_html:20}}<a class="link-learn" title=""
+                        href="{% url 'product_detail' product.pk %}">Learn More</a> </p>
+                  </div>
+                  <div class="price-box">
+
+                    <p class="special-price"> <span class="price-label"></span> <span class="price"> ${{product.price}}
+                      </span> </p>
+                    <p class="old-price"> <span class="price-label"></span> <span class="price"> $442.99 </span> </p>
+                  </div>
+                  <div class="actions">
+
+                    <!-- <button class="add-card" data="{{product.id}}">Add To Card</button> -->
+
+                    <button id="add-to-basket" data="{{product.id}}" class="button btn-cart ajx-cart" title="Add to Cart"
+                    type="button"><span>Add to Cart</span></button>
+
+                      <span class="add-to-links"> <a title="Add to Wishlist" class="button link-wishlist" href="#"
+                          data="{{product.id}}"><span data="{{product.id}}">Add
+                            to Wishlist</span></a> 
+                            
+                            <!-- <a title="Add to Compare" class="button link-compare"
+                          href="#"><span>Add to Compare</span></a> </span> -->
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+            </ol>
+          </div>
+        </article>
+
+        <div class="toolbar">
+          <div class="sorter">
+            <!-- <div class="view-mode"> <a href="grid.html" title="Grid" class="button button-grid">&nbsp;</a>&nbsp; <span
+                title="List" class="button button-active button-list">&nbsp;</span>&nbsp; </div> -->
+          </div>
+          <!-- <div id="sort-by">
+            <label class="left">Sort By: </label>
+            <ul>
+              <li><a href="#">Position<span class="right-arrow"></span></a>
+                <ul>
+                  <li><a href="#">Name</a></li>
+                  <li><a href="#">Price</a></li>
+                  <li><a href="#">Position</a></li>
+                </ul>
+              </li>
+            </ul>
+            <a class="button-asc left" href="#" title="Set Descending Direction"><span class="top_arrow"></span></a>
+          </div> -->
+          <div class="pager">
+            <!-- <div id="limiter">
+              <label>View: </label>
+              <ul>
+                <li><a href="#">15<span class="right-arrow"></span></a>
+                  <ul>
+                    <li><a href="#">20</a></li>
+                    <li><a href="#">30</a></li>
+                    <li><a href="#">35</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div> -->
+            <div class="pagination">
+              <span class="step-links">
+                  {% if page_obj.has_previous %}
+                      <a href="?page=1">&laquo; first</a>
+                      <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                  {% endif %}
+          
+                  <span class="current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+          
+                  {% if page_obj.has_next %}
+                      <a href="?page={{ page_obj.next_page_number }}">next</a>
+                      <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                  {% endif %}
+              </span>
+          </div>
+          </div>
+        </div>
+        <!--	///*///======    End article  ========= //*/// -->
+      </div>
+      <div class="col-left sidebar col-sm-3 col-xs-12 col-sm-pull-9">
+        <aside class="col-left sidebar">
+          <div class="side-nav-categories">
+            <div class="block-title"> Categories </div>
+            <!--block-title-->
+            <!-- BEGIN BOX-CATEGORY -->
+            <div class="box-content box-category">
+              <ul>
+                {% for category in categories %}
+                {% if category.parent is null %}
+                <li>
+                  <a class="active category-field" data="{{category.id}}" href="#">{{category}}</a> <span class="subDropdown minus"></span>
+                  <ul class="level0_415" style="display:block">
+                    {% for element in categories %}
+                    {% if element.parent == category %}
+                    <li>
+                      <a href="#" data="{{element.id}}" class="category-field"> {{element.title}} </a> <span class="subDropdown plus"></span>
+                      <ul class="level1" style="display:none">
+                        {% for elem in categories %}
+                        {% if elem.parent == element %}
+                        <li>
+                          <a href="#" class="category-field" data="{{elem.id}}"> {{elem.title}} </a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        <!--end for-each -->
+                      </ul>
+                      <!--level1-->
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                  <!--level0-->
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+            <!--box-content box-category-->
+          </div>
+          <!-- <div class="block block-layered-nav">
+            <div class="block-title">Shop By</div>
+            <div class="block-content">
+              <p class="block-subtitle">Shopping Options</p>
+              <dl id="narrow-by-list">
+                <dt class="odd">Color</dt>
+                <dd class="odd">
+                  <ol>
+                    {% for color in colors %}
+                    <li> <a href="#" class="color-field" data="{{color.id}}">{{color.color}}</a> ({{color.product_color.all.count}}) </li>
+                    {% endfor %}
+                  </ol>
+                </dd>
+                <dt class="last even">Size</dt>
+                <dd class="last even">
+                  <ol>
+                    {% for size in sizes %}
+                    <li> <a href="#">{{size.size}}</a> ({{size.product_size.all.count}}) </li>
+                    {% endfor %}
+                  </ol>
+                </dd>
+              </dl>
+            </div>
+          </div> -->
+          <div class="block block-cart">
+            <div class="block-title ">My Cart</div>
+            <div class="block-content">
+              <div class="summary">
+                {% if request.user.is_authenticated %}
+                
+                <!-- <p class="amount">There are <a href="#">2 items</a> in your cart.</p> -->
+                <p class="subtotal"> <span class="label">Cart Subtotal:</span> <span class="price">${{user.shoppingcardofUser.total}}</span> </p>
+                
+                
+              </div>
+              <div class="ajax-checkout">
+                <button class="button button-checkout" title="Submit" type="submit"><span>Checkout</span></button>
+              </div>
+              <!-- <p class="block-subtitle">Recently added item(s) </p> -->
+              <ul>
+                
+                {% for item in user.shoppingcardofUser.items.all %}
+                <li class="item"> <a href="#" title="Retis lapen casen" class="product-image"><img
+                      src="{{item.product.cover_image.url}}" alt="Fisher-Price Bubble Mower"></a>
+                  <div class="product-details">
+                    <div class="access"> <a href="#" title="Remove This Item" class="btn-remove1"> <span
+                          class="icon"></span> Remove </a> </div>
+                    <strong>{{item.quantity}}</strong> x <span class="price">${{item.price}}</span>
+                    <p class="product-name"> <a href="#">{{item.product.title}}</a> </p>
+                  </div>
+                </li>
+                {% endfor %}
+                {% endif %} 
+              </ul>
+            </div>
+          </div>
+         
+          
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Main Container End -->
+
+{% include 'brand_logo.html' %}
+
+{% endblock content %}
+
+{% block js %}
+<!-- JavaScript -->
+<script type="text/javascript" src="{% static 'js/parallax.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/wishlist.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/basket.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/filter.js' %}"></script>
+{% endblock js %}

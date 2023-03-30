@@ -1,0 +1,190 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Checkout{% endblock title %}
+
+<!-- CSS Style -->
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/internal.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}" media="all">
+<link rel="stylesheet" type="text/css" href="{% static 'css/flexslider.css' %}">
+{% endblock css %}
+
+
+{% block bodyclass %}onestepcheckout-index-index inner-page{% endblock bodyclass %}
+{% block divid %}page{% endblock divid %}
+  
+  {% block content %}
+  <!-- Main Container -->
+  <section class="main-container col2-right-layout bounceInUp animated">
+    <div class="main container">
+      <div class="row">
+        <div class="col-main col-sm-9">
+          <div class="page-title">
+            <h1>Checkout</h1>
+          </div>
+          <ol class="one-page-checkout" id="checkoutSteps">
+            <li id="opc-billing" class="section allow active">
+              <div class="step-title"> <span class="number">1</span>
+                <h3>Checkout Method</h3>
+                <!--<a href="#">Edit</a> --> 
+              </div>
+              <div id="checkout-step-billing" class="step a-item" >
+                <form id="co-billing-form" method="post">
+                  <select name="user" style="visibility: hidden;" class="form-control" id="id_user">
+                    <option value="{{request.user.id}}">{{request.user.email}}</option>
+                  
+                  </select>
+                  
+                  {% csrf_token %}
+                  <fieldset class="group-select">
+                    <ul>
+                      <!-- <li>
+                        <label for="billing-address-select">Select a billing address from your address book or enter a new address.</label>
+                        <br>
+                        <select name="" id="billing-address-select" class="address-select" title="" onChange="#">
+                          <option value="1" selected="selected">pranali d, aundh, tyyrt, Alabama 46532, United States</option>
+                          <option >New Address</option>
+                        </select>
+                      </li> -->
+                      <li id="billing-new-address-form" style="display: block;">
+                        <fieldset>
+                          <legend>New Address</legend>
+                          <input type="hidden" name="" value="4269" id="billing:address_id">
+                          <ul>
+                            <li>
+                              <div class="customer-name">
+                                <div class="input-box name-firstname">
+                                  <label for="billing:firstname"> First Name <span class="required">*</span> </label>
+                                  <br>
+                                  <!-- <input type="text" id="billing:firstname" name="first_name" value="" title="First Name" class="input-text"> -->
+                                  {{form.first_name}}
+                                  {{form.errors.first_name}}
+                                </div>
+                                <div class="input-box name-lastname">
+                                  <label for="billing:lastname"> Last Name <span class="required">*</span> </label>
+                                  <br>
+                                  <!-- <input type="text" id="billing:lastname" name="" value="d" title="Last Name" class="input-text"> -->
+                                  {{form.last_name}}
+                                  {{form.errors.last_name}}
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <label>Address <span class="required">*</span></label>
+                              <br>
+                              <!-- <input type="text" title="Street Address" name="" value="aundh" class="input-text"> -->
+                              {{form.address}}
+                              {{form.errors.address}}
+                            </li>
+                            <li>
+                              <!-- <input type="text" title="Street Address 2" name="" class="input-text"> -->
+                            </li>
+                            <li>
+                              <div class="input-box">
+                                <label for="billing:city">City <span class="required">*</span></label>
+                                <br>
+                                <!-- <input type="text" title="City" name="" value="tyyrt" class="input-text" id="billing:city"> -->
+                                {{form.city}}
+                                {{form.errors.city}}
+                              </div>
+                              <div class="input-box">
+                                <label for="billing:country_id">Country <span class="required">*</span></label>
+                                <br>
+                                <!-- <input type="text" title="Country" name="" id="billing:country" value="" class="input-text validate-zip-international"> -->
+                                {{form.country}}
+                                {{form.errors.country}}
+                              </div>
+                            </li>
+                            <li>
+                              <div class="input-box">
+                                <label for="billing:postcode">Zip/Postal Code <span class="required">*</span></label>
+                                <br>
+                                <!-- <input type="text" title="Zip/Postal Code" name="" id="billing:postcode" value="46532" class="input-text validate-zip-international"> -->
+                                {{form.zipcode}}
+                                {{form.zipcode.errors}}
+                              </div>
+                              <div class="input-box">
+                                <label for="billing:telephone">Telephone <span class="required">*</span></label>
+                                <br>
+                                <!-- <input type="text" name="" value="454541" title="Telephone" class="input-text" id="billing:telephone"> -->
+                                {{form.phone}}
+                                {{form.phone.errors}}
+                              </div>
+                            </li>
+                            <li>
+                              <!-- <input type="checkbox" name="" value="1" title="Save in address book" id="billing:save_in_address_book" onChange="#;" class="checkbox"> -->
+                              {{form.is_default}}
+
+                              <!-- <label for="billing:save_in_address_book">Save in address book</label> -->
+                            </li>
+                          </ul>
+                        </fieldset>
+                      </li>
+                      <!-- <li>
+                        <input type="radio" name="radio" id="billing:use_for_shipping_yes" value="1" class="radio">
+                        <label for="billing:use_for_shipping_yes">Ship to this address</label>
+                        <input type="radio" name="radio" id="billing:use_for_shipping_no" value="0" checked="checked" class="radio">
+                        <label for="billing:use_for_shipping_no">Ship to different address</label>
+                      </li> -->
+                    </ul>
+                    <p class="require"><em class="required">* </em>Required Fields</p>
+                    {{form.errors}}
+                    <button type="submit" class="button continue" ><span>Continue</span></button>
+                  </fieldset>
+                </form>
+              </div>
+            </li>
+            
+          </ol>
+        </div>
+        <aside class="col-right sidebar col-sm-3">
+          <div class="block block-progress">
+            <div class="block block-cart">
+              <div class="block-title ">My Cart</div>
+              <div class="block-content">
+                <div class="summary">
+                  {% if request.user.is_authenticated %}
+                  
+                  <!-- <p class="amount">There are <a href="#">2 items</a> in your cart.</p> -->
+                  <p class="subtotal" style="padding: 0 10px;"> <span class="label">Cart Subtotal:</span> <span class="price">${{user.shoppingcardofUser.total}}</span> </p>
+                  
+                  
+                </div>
+                
+                <!-- <p class="block-subtitle">Recently added item(s) </p> -->
+                <ul>
+                  
+                  {% for item in user.shoppingcardofUser.items.all %}
+                  <li class="item" style="padding: 0 10px;"> <a href="#" title="Retis lapen casen" class="product-image"><img
+                        src="{{item.product.cover_image.url}}" alt="Fisher-Price Bubble Mower"></a>
+                    <div class="product-details">
+                      
+                      <strong>{{item.quantity}}</strong> x <span class="price">${{item.price}}</span>
+                      <p class="product-name"> <a href="#">{{item.product.title}}</a> </p>
+                    </div>
+                  </li>
+                  {% endfor %}
+                  {% endif %} 
+                </ul>
+              </div>
+            </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <!-- Main Container End --> 
+  
+{% include 'brand_logo.html' %}
+
+{% endblock content %}
+  
+
+{% block js %}
+<!-- JavaScript --> 
+<script type="text/javascript" src="{% static 'js/parallax.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.flexslider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/cloud-zoom.js' %}"></script>
+{% endblock js %}

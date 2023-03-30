@@ -1,0 +1,233 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Checkout billing Information{% endblock title %}
+
+{% block css %}
+<!-- CSS Style -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/internal.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/flexslider.css' %}">
+{% endblock css %}
+
+{% block bodyclass %}onestepcheckout-index-index inner-page{% endblock bodyclass %}
+{% block divid %}page{% endblock divid %}
+
+  {% block content %}
+  <!-- Main Container -->
+  <section class="main-container col2-right-layout bounceInUp animated">
+    <div class="main container">
+      <div class="row">
+        <div class="col-main col-sm-9">
+          <div class="page-title">
+            <h1>Checkout</h1>
+          </div>
+          <ol class="one-page-checkout" id="checkoutSteps">
+            <li id="opc-login" class="section">
+              <div class="step-title"> <span class="number">1</span>
+                <h3 class="one_page_heading">Checkout Method</h3>
+                <!--<a href="#">Edit</a>--> 
+              </div>
+            </li>
+            <li id="opc-billing" class="section allow active">
+              <div class="step-title"> <span class="number">2</span>
+                <h3 class="one_page_heading">Billing Information</h3>
+                <!--<a href="#">Edit</a>--> 
+              </div>
+              <div id="checkout-step-billing" class="step a-item">
+                <form id="co-billing-form" action="" method="post">
+
+                  {% csrf_token %}
+                  <fieldset class="group-select">
+                    <select name="user" class="form-control" style="visibility: hidden;" id="id_user">                    
+                      <option value="{{request.user.id}}">{{request.user.email}}</option>
+                    
+                    </select>
+                    <ul>
+                      <li id="billing-new-address-form">
+                        <fieldset>
+                          <legend>New Address</legend>
+                          <input type="hidden"  id="billing:address_id" />
+                          <ul>
+                            <li>
+                              <div class="customer-name">
+                                <div class="input-box name-firstname">
+                                  <label for="billing:firstname"> First Name<span class="required">*</span></label>
+                                  <br />
+                                  <!-- <input type="text" id="billing:firstname" name="" title="First Name" class="input-text" /> -->
+                                  {{form.first_name}}
+                                </div>
+                                <div class="input-box name-lastname">
+                                  <label for="billing:lastname"> Last Name<span class="required">*</span> </label>
+                                  <br />
+                                  <!-- <input type="text" id="billing:lastname" name="" title="Last Name" class="input-text" /> -->
+                                  {{form.last_name}}
+                                </div>
+                              </div>
+                            </li>
+                            <!-- <li>
+                              <div class="input-box">
+                                <label for="billing:company">Company</label>
+                                <br />
+                                <input type="text" id="billing:company" name="" title="Company" class="input-text" />
+                              </div>
+                              <div class="input-box">
+                                <label for="billing:email">Email Address <span class="required">*</span></label>
+                                <br />
+                                <input type="text" name="billing[email]" id="billing:email" title="Email Address" class="input-text" />
+                              </div>
+                            </li> -->
+                            <li>
+                              <label for="billing:street1">Address <span class="required">*</span></label>
+                              <br />
+                              <!-- <input type="text" title="Street Address" name="" id="billing:street1  street1" class="input-text" /> -->
+                              {{form.address}}
+                            </li>
+                            <!-- <li>
+                              <input type="text" title="Street Address 2" name="" id="billing:street2 street2" class="input-text" />
+                            </li> -->
+                            <li>
+                              <div class="input-box">
+                                <label for="billing:city">City <span class="required">*</span></label>
+                                <br />
+                                <!-- <input type="text" title="City" name="" class="input-text" id="billing:city" /> -->
+                                {{form.city}}
+                              </div>
+                              <div class="input-box">
+                                <label for="billing:country">Country <span class="required">*</span></label>
+                                <br />
+                                <!-- <input type="text" title="City" name="" class="input-text" id="billing:city" /> -->
+                                {{form.country}}
+                              </div>
+                              <!-- <div id="div" class="input-box">
+                                <label for="billing:region">State/Province <span class="required">*</span></label>
+                                <br />
+                                <select defaultvalue="" id="billing:region_id" name="" title="State/Province" class="validate-select">
+                                  <option>Please select region, state or province</option>
+                                  <option value="1">Alabama</option>
+                                  <option value="2">Alaska</option>
+                                  <option value="3">American Samoa</option>
+                                </select>
+                              </div> -->
+                            </li>
+                            <li>
+                              <div class="input-box">
+                                <label for="billing:telephone">Telephone <span class="required">*</span></label>
+                                <br />
+                                <input type="text" name="" title="Telephone" class="input-text" id="billing:telephone" />
+                              </div>
+                              <div class="input-box">
+                                <label for="billing:zip">Zip Code</label>
+                                <br />
+                                <!-- <input type="text" name="" title="Fax" class="input-text" id="billing:fax" /> -->
+                                {{form.zipcode}}
+                              </div>
+                            </li>
+                            
+                              <input type="hidden" name="" value="1" />
+                            </li>
+                          </ul>
+                        </fieldset>
+                      </li>
+                      
+                    </ul>
+                    <p class="require"><em class="required">* </em>Required Fields</p>
+                    <button type="submit" class="button continue confirmOrder" ><span>Confirm order</span></button>
+                    <br>
+                    <br>
+                    <br>
+                    <div id="paypal-button-container" style="display: none;"></div>
+
+                  </fieldset>
+                </form>
+              </div>
+            </li>
+          </ol>
+        </div>
+        <aside class="col-right sidebar col-sm-3">
+          <div class="block block-progress">
+            <div class="block block-cart">
+              <div class="block-title ">My Cart</div>
+              <div class="block-content">
+                <div class="summary">
+                  {% if request.user.is_authenticated %}
+                  
+                  <!-- <p class="amount">There are <a href="#">2 items</a> in your cart.</p> -->
+                  <p class="subtotal" style="padding: 0 10px;"> <span class="label">Cart Subtotal:</span> <span class="price">${{user.shoppingcardofUser.total}}</span> </p>
+                  
+                  
+                </div>
+                
+                <!-- <p class="block-subtitle">Recently added item(s) </p> -->
+                <ul>
+                  
+                  {% for item in user.shoppingcardofUser.items.all %}
+                  <li class="item" style="padding: 0 10px;"> <a href="#" title="Retis lapen casen" class="product-image"><img
+                        src="{{item.product.cover_image.url}}" alt="Fisher-Price Bubble Mower"></a>
+                    <div class="product-details">
+                      
+                      <strong>{{item.quantity}}</strong> x <span class="price">${{item.price}}</span>
+                      <p class="product-name"> <a href="#">{{item.product.title}}</a> </p>
+                    </div>
+                  </li>
+                  {% endfor %}
+                  {% endif %} 
+                </ul>
+              </div>
+            </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <!-- Main Container end --> 
+  
+  {% include 'brand_logo.html' %}
+
+  {% endblock content %}
+  
+  {% block js %}
+  <!-- JavaScript --> 
+  <script src="https://www.paypal.com/sdk/js?client-id=AQlCEAB8cVuLGijSY-0qsRMRWEYG9a-L4MKfPkWCVwufaNB9HsQ43ffhqxGHxdPBPuHl3rDcjJj3HPco&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '88.44'
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\n');
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+
+
+  <script type="text/javascript" src="{% static 'js/parallax.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery.flexslider.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/cloud-zoom.js' %}"></script>
+  {% endblock js %}
+  

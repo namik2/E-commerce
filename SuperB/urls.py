@@ -1,7 +1,7 @@
-"""SuperB URL Configuration
+"""superb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
+    https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -16,10 +16,30 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.conf.urls.static import static
+from django.conf import settings
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('account.urls')),
-    path('', include('checkout.urls')),
-    path('', include('core.urls')),
-    path('', include('prodcut.urls')),
+    path ('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path ('', include("core.urls")),
+    path ('', include("blog.urls")),
+    path ('', include("accounts.urls", namespace = "accounts")),
+    path ('', include("order.urls", namespace="order")),
+    path ('', include("products.urls")),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include('api.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
